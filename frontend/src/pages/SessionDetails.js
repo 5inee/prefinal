@@ -211,7 +211,7 @@ const SessionDetails = () => {
             <SessionStatus isComplete={session.isComplete}>
               {session.isComplete ? (
                 <>
-                  <FaCheck /> الجلسة مكتملة
+                  <FaCheck /> أرسلت توقعك
                 </>
               ) : (
                 <>

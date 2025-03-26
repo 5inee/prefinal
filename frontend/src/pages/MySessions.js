@@ -42,8 +42,20 @@ const MySessions = () => {
   };
   
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-    return new Date(dateString).toLocaleDateString('ar-EG', options);
+    const date = new Date(dateString);
+    
+    // استخدام en-US بدلاً من ar-EG للحصول على أرقام لاتينية
+    // واستخدام الأنماط المناسبة بدون ثوانٍ
+    const options = { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric', 
+      hour: '2-digit', 
+      minute: '2-digit',
+      hour12: true
+    };
+    
+    return date.toLocaleDateString('en-US', options).replace(',', ' -');
   };
   
   return (

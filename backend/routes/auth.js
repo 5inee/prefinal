@@ -11,7 +11,7 @@ router.post('/register', register);
 router.post('/login', login);
 
 // مسار تسجيل الدخول كضيف
-router.post('/guest', guestLogin);
+router.post('/visitor', guestLogin);
 
 // مسار التحقق من صحة الرمز
 router.get('/verify', auth, (req, res) => {

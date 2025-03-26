@@ -204,14 +204,14 @@ const SessionDetails = () => {
             <SessionInfo>
               <SessionInfoItem>
                 <FaUsers />
-                <span>{session.predictions.length} / {session.maxPlayers} متوقع</span>
+                <span>{session.participants} / {session.maxPlayers} مشارك</span>
               </SessionInfoItem>
             </SessionInfo>
             
             <SessionStatus isComplete={session.isComplete}>
               {session.isComplete ? (
                 <>
-                  <FaCheck /> أرسلت توقعك
+                  <FaCheck /> أرسلت توقعك 
                 </>
               ) : (
                 <>

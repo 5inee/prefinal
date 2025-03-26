@@ -204,7 +204,7 @@ const SessionDetails = () => {
             <SessionInfo>
               <SessionInfoItem>
                 <FaUsers />
-                <span>{session.predictions.length} / {session.maxPlayers} مشارك</span>
+                <span>{session.predictions.length} / {session.maxPlayers} توقع</span>
               </SessionInfoItem>
             </SessionInfo>
             

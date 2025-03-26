@@ -10,8 +10,8 @@ router.post('/register', register);
 // مسار تسجيل الدخول
 router.post('/login', login);
 
-// مسار تسجيل الدخول كضيف
-router.post('/visitor', guestLogin);
+// مسار تسجيل الدخول كضيف (استخدام مصطلح محايد)
+router.post('/temp-access', guestLogin);
 
 // مسار التحقق من صحة الرمز
 router.get('/verify', auth, (req, res) => {

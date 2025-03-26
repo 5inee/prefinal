@@ -53,7 +53,7 @@ const GuestLogin = () => {
       const result = await guestLogin(username);
       
       if (result.success) {
-        toast.success('يالله ان تحييه');
+        toast.success('تم تسجيل الدخول كضيف بنجاح');
         navigate('/');
       } else {
         toast.error(result.message || 'فشل تسجيل الدخول');
@@ -71,7 +71,7 @@ const GuestLogin = () => {
         <ContentWrapper>
           <Card
             title="الدخول كضيف"
-            subtitle="اكتب اسمك نفداك"
+            subtitle="جرب المنصة بدون تسجيل حساب كامل"
             centered
             elevated
           >
@@ -91,7 +91,10 @@ const GuestLogin = () => {
               />
               
               <InfoMessage>
-              اسامي محظورة: القذافي، صدام حسين، الخميني، كريستيانو
+                ملاحظة: حساب الضيف مؤقت ولا يمكن استعادته لاحقاً.
+                <BraveNote>
+                  إذا كنت تستخدم متصفح Brave وواجهت مشكلة، يرجى تعطيل حماية Shields مؤقتًا.
+                </BraveNote>
               </InfoMessage>
               
               <ButtonGroup>
@@ -152,12 +155,18 @@ const ButtonGroup = styled.div`
 
 const InfoMessage = styled.div`
   background-color: rgba(23, 162, 184, 0.1);
-  color: var(--error-color);
+  color: var(--info-color);
   padding: 12px 15px;
   border-radius: var(--border-radius);
   margin-top: 15px;
   font-weight: 500;
   text-align: center;
+`;
+
+const BraveNote = styled.div`
+  margin-top: 10px;
+  font-size: 12px;
+  color: #e67e22;
 `;
 
 const LinksSection = styled.div`

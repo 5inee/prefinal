@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
   // تسجيل دخول كضيف
   const guestLogin = async (username) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/visitor', {
+      const response = await axios.post('http://localhost:5000/api/auth/temp-access', {
         username
       });
       

@@ -152,7 +152,7 @@ const ButtonGroup = styled.div`
 
 const InfoMessage = styled.div`
   background-color: rgba(23, 162, 184, 0.1);
-  color: var(--info-color);
+  color: var(--error-color);
   padding: 12px 15px;
   border-radius: var(--border-radius);
   margin-top: 15px;

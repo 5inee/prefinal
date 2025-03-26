@@ -142,19 +142,17 @@ const SessionDetails = () => {
     }
   }, [session]);
   
-  const getRandomColor = (username) => {
-    // إنشاء لون عشوائي ثابت بناءً على اسم المستخدم
-    let hash = 0;
-    for (let i = 0; i < username.length; i++) {
-      hash = username.charCodeAt(i) + ((hash << 5) - hash);
-    }
+  const getAvatarColor = (username, index, totalUsers) => {
+    // Usar la posición en la lista para generar un color único
+    // Dividir el círculo cromático (360 grados) en segmentos iguales
+    const hue = index * (360 / totalUsers);
     
-    const colors = [
-      '#4a4baa', '#5e60ce', '#6930c3', '#7209b7', '#3a0ca3', 
-      '#4361ee', '#4895ef', '#4cc9f0', '#64dfdf', '#72efdd'
-    ];
+    // Mantener saturación y luminosidad constantes para colores vibrantes pero legibles
+    const saturation = 70; // %
+    const lightness = 55; // %
     
-    return colors[Math.abs(hash) % colors.length];
+    // Devolver color en formato HSL
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   };
   
   const getUserInitial = (username) => {
@@ -270,10 +268,10 @@ const SessionDetails = () => {
               </PredictionsTitle>
               
               <PredictionsList>
-                {session.predictions.map((pred) => (
+                {session.predictions.map((pred, index) => (
                   <PredictionItem key={pred.id} isCurrentUser={pred.isCurrentUser}>
                     <PredictionUser>
-                      <UserAvatar color={getRandomColor(pred.username)}>
+                      <UserAvatar color={getAvatarColor(pred.username, index, session.predictions.length)}>
                         {getUserInitial(pred.username)}
                       </UserAvatar>
                       <div>

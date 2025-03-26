@@ -16,6 +16,11 @@ const register = async (req, res) => {
       return res.status(400).json({ message: 'يرجى تقديم اسم المستخدم وكلمة المرور' });
     }
     
+    // التحقق من الأسماء المحظورة
+    if (isProhibitedUsername(username)) {
+      return res.status(403).json({ message: 'عذراً، هذا الاسم غير مسموح به. يرجى اختيار اسم آخر.' });
+    }
+    
     // التحقق من عدم وجود مستخدم بنفس الاسم
     const existingUser = await User.findOne({ username });
     if (existingUser) {
@@ -95,6 +100,11 @@ const guestLogin = async (req, res) => {
     if (!username) {
       return res.status(400).json({ message: 'يرجى تقديم اسم المستخدم' });
     }
+
+    // التحقق من الأسماء المحظورة
+    if (isProhibitedUsername(username)) {
+      return res.status(403).json({ message: 'تستهبل؟ غير الاسم' });
+    }
     
     // إنشاء حساب ضيف جديد
     const guestUser = new User({
@@ -122,8 +132,38 @@ const guestLogin = async (req, res) => {
   }
 };
 
+// دالة للتحقق من الأسماء المحظورة
+const isProhibitedUsername = (username) => {
+  // قائمة بالأسماء المحظورة ومشتقاتها
+  const prohibitedNames = [
+    // صدام حسين
+    'صدام', 'صدام حسين', 'سدام', 'saddam', 'hussein', 'حسين صدام',
+    // القذافي
+    'قذافي', 'القذافي', 'معمر', 'معمر القذافي', 'gaddafi', 'qaddafi', 'gadafi', 'kadafi',
+    // الخميني
+    'خميني', 'الخميني', 'خومیني', 'khomeini', 'khomeni', 'خامنئي', 'خامنئى',
+    // كريستيانو
+    'كريستيانو', 'رونالدو', 'كرستيانو', 'كريستيانو رونالدو', 'cristiano', 'ronaldo', 'cr7'
+  ];
+
+  // تحويل النص إلى أحرف صغيرة وإزالة الفراغات الزائدة
+  const normalizedUsername = username.toLowerCase().trim();
+  
+  // التحقق من كل اسم محظور
+  return prohibitedNames.some(name => {
+    // تحويل الاسم المحظور إلى أحرف صغيرة
+    const normalizedName = name.toLowerCase();
+    
+    // التحقق إذا كان الاسم المدخل يحتوي على الاسم المحظور
+    return normalizedUsername.includes(normalizedName) || 
+           // أو إذا كان الاسم المحظور يحتوي على الاسم المدخل (للأسماء القصيرة)
+           (normalizedName.length > 3 && normalizedName.includes(normalizedUsername));
+  });
+};
+
 module.exports = {
   register,
   login,
-  guestLogin
+  guestLogin,
+  isProhibitedUsername // تصدير الدالة للاستخدام في ملفات أخرى إذا لزم الأمر
 };
